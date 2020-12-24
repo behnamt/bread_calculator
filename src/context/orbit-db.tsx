@@ -2,9 +2,11 @@ import React, { useState, PropsWithChildren, useCallback } from 'react';
 import IPFS from 'ipfs';
 import OrbitDB from 'orbit-db';
 import { useAsync, AsyncState } from 'react-async';
+import DocumentStore from 'orbit-db-docstore';
+import { IBread } from '../interfaces/Bread';
 
 interface IOrbitDBContext {
-  db: any;
+  db: DocumentStore<IBread> | null;
   isPending: boolean;
 }
 

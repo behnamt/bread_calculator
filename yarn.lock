@@ -12276,7 +12276,7 @@ orbit-db-counterstore@~1.12.0:
   dependencies:
     crdts "~0.1.2"
 
-orbit-db-docstore@~1.12.0:
+orbit-db-docstore@^1.12.0, orbit-db-docstore@~1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/orbit-db-docstore/-/orbit-db-docstore-1.12.0.tgz#33479043a9da0004f684344de42305626be2669e"
   integrity sha512-AivU+G1y55qon2M8KY2SOV0nlCqzkc1+UpaFqtRtzH2NSPjsjnyr4Bhv+X/K+lXKQJPFnOMCiga+FspDjiKe3w==
@@ -12362,32 +12362,7 @@ orbit-db-store@~4.0.1:
     p-queue "^6.6.1"
     readable-stream "~3.6.0"
 
-orbit-db@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/orbit-db/-/orbit-db-0.26.0.tgz#ea506735703aeca5d88d2c964d1a3776088d45c8"
-  integrity sha512-fk0bPERO0Rhh7Mm6tPa3xnmsodofqh0z0m8bg4lQaqIhbA1z9A7CG7BJ83vAIelTG/Xcb6iae04qSjB0DYmRzQ==
-  dependencies:
-    cids "^1.0.0"
-    ipfs-pubsub-1on1 "~0.0.6"
-    is-node "^1.0.2"
-    localstorage-down "^0.6.7"
-    logplease "^1.2.14"
-    multihashes "~3.0.1"
-    orbit-db-access-controllers "^0.3.0"
-    orbit-db-cache "~0.3.0"
-    orbit-db-counterstore "~1.12.0"
-    orbit-db-docstore "~1.12.0"
-    orbit-db-eventstore "~1.12.0"
-    orbit-db-feedstore "~1.12.0"
-    orbit-db-identity-provider "~0.3.0"
-    orbit-db-io "~0.3.0"
-    orbit-db-keystore "~0.3.0"
-    orbit-db-kvstore "~1.12.0"
-    orbit-db-pubsub "~0.6.0"
-    orbit-db-storage-adapter "~0.5.3"
-    orbit-db-store "~4.0.1"
-
-"orbit-db@git+https://github.com/orbitdb/orbit-db.git":
+orbit-db@^0.26.0, "orbit-db@git+https://github.com/orbitdb/orbit-db.git":
   version "0.26.0"
   resolved "git+https://github.com/orbitdb/orbit-db.git#52d68cd690aaa800430200db48a935d8af693e8e"
   dependencies:
