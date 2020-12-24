@@ -13,6 +13,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "autoprefixer": "^9.8.6",
+    "dotenv": "^8.2.0",
     "ipfs": "^0.52.3",
     "node-sass": "4.14.1",
     "orbit-db": "^0.26.0",
