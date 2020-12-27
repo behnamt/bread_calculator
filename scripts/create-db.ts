@@ -11,7 +11,8 @@ const main = async () => {
     // Setup write access
     accessController: {
       write: ['*'],
-    }
+    },
+    indexBy: 'name',
   }
 
   const db = await orbitdb.docs('bread-calculator-database', options);
