@@ -1,4 +1,4 @@
-import React, { useState, PropsWithChildren, useCallback } from 'react';
+import React, { PropsWithChildren, useCallback } from 'react';
 import IPFS from 'ipfs';
 import OrbitDB from 'orbit-db';
 import { useAsync, AsyncState } from 'react-async';
@@ -21,7 +21,14 @@ const useOrbitDBProvider = (): any => {
       const ipfsOptions = { repo: process.env.REACT_APP_IPFS_DIR };
       const ipfs = await IPFS.create(ipfsOptions);
       const orbitdb = await OrbitDB.createInstance(ipfs);
-      return orbitdb.docs(process.env.REACT_APP_ORBIT_DB_INSTANCE || '');
+      const instance = await orbitdb.docs(
+        process.env.REACT_APP_ORBIT_DB_INSTANCE || '',
+        {
+          indexBy: 'name',
+        } as any,
+      );
+      instance.load();
+      return instance;
     }, []),
   });
 
@@ -41,4 +48,4 @@ const OrbitDBProvider = ({ children }: PropsWithChildren<any>): any => {
   );
 };
 
-export { OrbitDBProvider };
+export { OrbitDBProvider, useOrbitDBProvider };
