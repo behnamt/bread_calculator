@@ -3,7 +3,7 @@ import React, { ChangeEvent } from 'react';
 interface InputProps {
   name: string;
   label: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
 }
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         name={name}
         id={name}
         className="mt-1 border p-1.5 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-        onChange={onChange}
+        onChange={(event) => onChange(event.target.value)}
       />
     </>
   );

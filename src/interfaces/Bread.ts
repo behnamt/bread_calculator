@@ -4,7 +4,7 @@ export type IBread = {
   description: string;
   alt: string[];
   ingredients: {
-    [key:string] : number;
-  }
+    [key: string]: number;
+  };
   instructions: string;
-}
+};

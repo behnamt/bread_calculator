@@ -46,7 +46,8 @@
         "prettier/prettier": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "react/jsx-one-expression-per-line": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "jsx-a11y/label-has-associated-control": "off"
     },
     "settings": {
         "import/resolver": {
