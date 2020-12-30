@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useCallback } from 'react';
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
 import IPFS from 'ipfs';
 import OrbitDB from 'orbit-db';
 import { useAsync, AsyncState } from 'react-async';
@@ -6,17 +11,21 @@ import DocumentStore from 'orbit-db-docstore';
 import { IBread } from '../interfaces/Bread';
 
 interface IOrbitDBContext {
-  db: DocumentStore<IBread> | null;
+  DB: DocumentStore<any> | null;
   isPending: boolean;
 }
 
 const orbitDBContext = React.createContext<IOrbitDBContext>({
-  db: null,
+  DB: null,
   isPending: false,
 });
 
+const useOrbitDB = (): any => useContext(orbitDBContext);
+
 const useOrbitDBProvider = (): any => {
-  const { data: db, isPending }: AsyncState<any> = useAsync({
+  const [DB, setDB] = useState<DocumentStore<any> | null>(null);
+
+  const { isPending }: AsyncState<DocumentStore<any>> = useAsync({
     promiseFn: useCallback(async () => {
       const ipfsOptions = { repo: process.env.REACT_APP_IPFS_DIR };
       const ipfs = await IPFS.create(ipfsOptions);
@@ -28,12 +37,15 @@ const useOrbitDBProvider = (): any => {
         } as any,
       );
       instance.load();
+      console.log('loaded');
+
       return instance;
     }, []),
+    onResolve: (instance) => setDB(instance),
   });
 
   return {
-    db,
+    DB,
     isPending,
   };
 };
@@ -48,4 +60,4 @@ const OrbitDBProvider = ({ children }: PropsWithChildren<any>): any => {
   );
 };
 
-export { OrbitDBProvider, useOrbitDBProvider };
+export { OrbitDBProvider, useOrbitDB };
