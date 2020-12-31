@@ -1,43 +1,59 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import React, { ReactElement, useCallback, useContext, useState } from 'react';
 import IPFS from 'ipfs';
 import OrbitDB from 'orbit-db';
 import { useAsync, AsyncState } from 'react-async';
 import DocumentStore from 'orbit-db-docstore';
-import { IBread } from '../interfaces/Bread';
 
+interface ITempData {
+  name: string;
+  alt: string;
+}
 interface IOrbitDBContext {
-  DB: DocumentStore<any> | null;
+  DB: DocumentStore<ITempData> | null;
   isPending: boolean;
 }
+
+const ipfsOptions = {
+  repo: process.env.REACT_APP_IPFS_DIR || './.ipfs',
+  config: {
+    Addresses: {
+      Swarm: [
+        // These are public webrtc-star servers
+        '/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star',
+        '/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star',
+      ],
+    },
+    // This removes the default IPFS peers to dial to. You can specify any known addresses you wish, or leave blank.
+    Bootstrap: [],
+  },
+};
 
 const orbitDBContext = React.createContext<IOrbitDBContext>({
   DB: null,
   isPending: false,
 });
 
-const useOrbitDB = (): any => useContext(orbitDBContext);
+const useOrbitDB = (): IOrbitDBContext => useContext(orbitDBContext);
 
-const useOrbitDBProvider = (): any => {
-  const [DB, setDB] = useState<DocumentStore<any> | null>(null);
+const useOrbitDBProvider = (): IOrbitDBContext => {
+  const [DB, setDB] = useState<DocumentStore<ITempData> | null>(null);
 
-  const { isPending }: AsyncState<DocumentStore<any>> = useAsync({
+  const { isPending }: AsyncState<DocumentStore<ITempData>> = useAsync({
     promiseFn: useCallback(async () => {
-      const ipfsOptions = { repo: process.env.REACT_APP_IPFS_DIR };
-      const ipfs = await IPFS.create(ipfsOptions);
+      const ipfs = await IPFS.create(ipfsOptions as any);
       const orbitdb = await OrbitDB.createInstance(ipfs);
-      const instance = await orbitdb.docs(
-        process.env.REACT_APP_ORBIT_DB_INSTANCE || '',
+
+      const instance: DocumentStore<ITempData> = await orbitdb.docs(
+        process.env.REACT_APP_ORBIT_DB_INSTANCE || 'default-db',
         {
+          accessController: {
+            write: ['*'], // Give write access to everyone
+          },
           indexBy: 'name',
         } as any,
       );
-      instance.load();
-      console.log('loaded');
+
+      await instance.load();
 
       return instance;
     }, []),
@@ -50,7 +66,7 @@ const useOrbitDBProvider = (): any => {
   };
 };
 
-const OrbitDBProvider = ({ children }: PropsWithChildren<any>): any => {
+const OrbitDBProvider = ({ children }: any): ReactElement => {
   const orbitDB = useOrbitDBProvider();
 
   return (
