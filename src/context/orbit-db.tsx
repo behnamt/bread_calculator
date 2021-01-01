@@ -3,13 +3,10 @@ import IPFS from 'ipfs';
 import OrbitDB from 'orbit-db';
 import { useAsync, AsyncState } from 'react-async';
 import DocumentStore from 'orbit-db-docstore';
+import { IBread } from '../interfaces/Bread';
 
-interface ITempData {
-  name: string;
-  alt: string;
-}
 interface IOrbitDBContext {
-  DB: DocumentStore<ITempData> | null;
+  DB: DocumentStore<IBread> | null;
   isPending: boolean;
 }
 
@@ -36,14 +33,14 @@ const orbitDBContext = React.createContext<IOrbitDBContext>({
 const useOrbitDB = (): IOrbitDBContext => useContext(orbitDBContext);
 
 const useOrbitDBProvider = (): IOrbitDBContext => {
-  const [DB, setDB] = useState<DocumentStore<ITempData> | null>(null);
+  const [DB, setDB] = useState<DocumentStore<IBread> | null>(null);
 
-  const { isPending }: AsyncState<DocumentStore<ITempData>> = useAsync({
+  const { isPending }: AsyncState<DocumentStore<IBread>> = useAsync({
     promiseFn: useCallback(async () => {
       const ipfs = await IPFS.create(ipfsOptions as any);
       const orbitdb = await OrbitDB.createInstance(ipfs);
 
-      const instance: DocumentStore<ITempData> = await orbitdb.docs(
+      const instance: DocumentStore<IBread> = await orbitdb.docs(
         process.env.REACT_APP_ORBIT_DB_INSTANCE || 'default-db',
         {
           accessController: {

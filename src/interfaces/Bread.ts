@@ -1,10 +1,11 @@
+export interface IIngredients {
+  [key: string]: { amount: number; measure: string };
+}
+
 export type IBread = {
   name: string;
   origin: string;
-  description: string;
   alt: string[];
-  ingredients: {
-    [key: string]: number;
-  };
+  ingredients: IIngredients;
   instructions: string;
 };

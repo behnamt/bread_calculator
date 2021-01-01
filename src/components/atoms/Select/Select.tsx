@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from 'react';
+import { ISelectOption } from '../../../interfaces/Select';
 
 interface SelectProps {
   name: string;
-  options: { value: string; label: string }[];
+  options: ISelectOption[];
   label: string;
   onChange: (value: string) => void;
 }
@@ -25,7 +26,9 @@ const Select: React.FC<SelectProps> = (props: SelectProps) => {
         onChange={onSelect}
       >
         {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </select>
     </>

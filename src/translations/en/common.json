@@ -1,6 +1,12 @@
 {
   "bread-form": {
-      "name": "Name",
-      "alt": "Alternate names"
+    "alt": "Alternate names",
+    "description": "Description",
+    "instructions": "Instructions",
+    "name": "Name",
+    "origin": "Origin"
+  },
+  "alternate-names":{
+    "label": "Alternate name"
   }
 }
