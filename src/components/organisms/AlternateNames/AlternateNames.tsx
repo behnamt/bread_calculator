@@ -47,19 +47,30 @@ export const AlternateNames: React.FC<IAlternatenamesProps> = (
 
   return (
     <div>
-      <button onClick={addName} type="button">
-        +
-      </button>
-      {names.map((item) => (
-        <div key={item.id} className="flex">
+      <div className="flex justify-between">
+        <label>{t('alternate-names.label')}</label>
+        <button
+          onClick={addName}
+          type="button"
+          className="bg-blue-300 w-8 h-8 mb-2"
+        >
+          +
+        </button>
+      </div>
+      {names.map((item, index) => (
+        <div key={item.id} className="flex items-end justify-between mb-2">
           <div>
             <Input
-              name={`alt_name_${item.id}`}
-              label={t('alternate-names.label')}
+              name={`alt_name_${index}`}
+              label={`#${index + 1}`}
               onChange={(value) => changeName(value, item.id)}
             />
           </div>
-          <button onClick={() => removeName(item.id)} type="button">
+          <button
+            onClick={() => removeName(item.id)}
+            type="button"
+            className="bg-red-100 w-8 h-8"
+          >
             -
           </button>
         </div>
