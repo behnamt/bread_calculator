@@ -2,12 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { AsyncState, useAsync } from 'react-async';
 import { useTranslation } from 'react-i18next';
 import { useOrbitDB } from '../../../context/orbit-db';
-import { IIngredients } from '../../../interfaces/Bread';
+import { IIngredient } from '../../../interfaces/Bread';
 import { ISelectOption } from '../../../interfaces/Select';
 import Input from '../../atoms/Input/Input';
 import Select from '../../atoms/Select/Select';
 import TextArea from '../../atoms/TextArea/TextArea';
 import { AlternateNames } from '../AlternateNames/AlternateNames';
+import { IngredientsList } from '../IngredientsList/IngredientsList';
 
 const BreadForm: React.FC = () => {
   // Hooks
@@ -18,7 +19,7 @@ const BreadForm: React.FC = () => {
   const [alt, setAlt] = useState<string[]>([]);
   const [instructions, setInstruction] = useState<string>('');
   const [origin, setOrigin] = useState<string>('');
-  const [ingredients, setIngredients] = useState<IIngredients>({});
+  const [ingredients, setIngredients] = useState<IIngredient[]>([]);
 
   const {
     isPending: isCountriesPending,
@@ -69,8 +70,8 @@ const BreadForm: React.FC = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <AlternateNames onChange={setAlt} />
                 </div>
-                <div className="col-span-6 sm:col-span-3">
-                  {/* <IngredientsList onChange={setIngredients} /> */}
+                <div className="col-start-1 col-end-7">
+                  <IngredientsList onChange={setIngredients} />
                 </div>
                 <div className="col-start-1 col-end-7">
                   <TextArea

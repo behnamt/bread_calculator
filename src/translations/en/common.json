@@ -8,5 +8,11 @@
   },
   "alternate-names":{
     "label": "Alternate name"
+  },
+  "ingredients-list":{
+    "label": "Ingredients list",
+    "item": "Ingredient",
+    "amount": "Amount",
+    "measure": "Measure"
   }
 }

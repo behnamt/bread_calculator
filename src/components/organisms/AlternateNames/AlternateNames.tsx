@@ -46,7 +46,7 @@ export const AlternateNames: React.FC<IAlternatenamesProps> = (
   };
 
   return (
-    <div>
+    <>
       <div className="flex justify-between">
         <label>{t('alternate-names.label')}</label>
         <button
@@ -75,6 +75,6 @@ export const AlternateNames: React.FC<IAlternatenamesProps> = (
           </button>
         </div>
       ))}
-    </div>
+    </>
   );
 };
